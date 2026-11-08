@@ -1,0 +1,9 @@
+Convenções resumidas
+Separação por camada: routes → controllers → models (+ services para lógica transversal). middleware fica isolado.
+Entrada dupla: index.js (boot/infra) e app.js (composição do Express) — facilita testes e reaproveitamento.
+Multi-tenant: contexto tratado em middleware/tenantMiddleware.js; serviços/modelos respeitam o tenant.
+Frontend desacoplado por página: HTML + JS modular em frontend/js/ (admin, dados, ações).
+Operação separada do app: migrações, limpeza, backup e bootstrap em scripts/ (não misturar com runtime).
+Testes centralizados: scripts/testes/ (hoje focado em backend/utilitários; padrão pode evoluir para tests/ na raiz).
+Docs como fonte de verdade operacional: arquitetura, rotas, runbooks e roadmap em docs/.
+Ponto de atenção ao replicar: padronize nomes de models

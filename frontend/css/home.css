@@ -1,0 +1,120 @@
+:root {
+    color-scheme: light;
+    --bg-body: ivory;
+    --bg-gradient-1: #ff006e;
+    --bg-gradient-2: #00e5ff;
+    --bg-panel: #f2e9ff;
+    --text-primary: #5a2ca0;
+    --shadow-color: rgba(70, 24, 130, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 32px 20px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-body));
+    background-size: 240% 240%;
+    animation: gradient-shift 18s ease infinite;
+    color: var(--text-primary);
+    font-family: Arial, sans-serif;
+}
+
+main {
+    width: min(100%, 720px);
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 24px;
+    color: #fff;
+    font-size: clamp(2rem, 6vw, 3rem);
+    text-shadow: 0 2px 12px rgba(47, 20, 89, 0.24);
+}
+
+.panel {
+    padding: clamp(24px, 6vw, 40px);
+    border-radius: 10px;
+    background: var(--bg-panel);
+    box-shadow: 0 12px 32px var(--shadow-color);
+}
+
+.panel h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+}
+
+.panel p {
+    margin: 0 0 28px;
+    color: #523b70;
+    line-height: 1.6;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.action-button {
+    min-height: 56px;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px var(--shadow-color);
+}
+
+.action-button:active {
+    transform: scale(0.98);
+}
+
+.action-button:focus-visible {
+    outline: 3px solid #2f1459;
+    outline-offset: 3px;
+}
+
+@keyframes gradient-shift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@media (max-width: 560px) {
+    .actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

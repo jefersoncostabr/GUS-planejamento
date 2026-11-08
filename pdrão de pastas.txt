@@ -1,0 +1,41 @@
+GUS/
+├─ index.js                 # Bootstrap: carrega .env, conecta DB, sobe servidor
+├─ app.js                   # Configuração do Express (middlewares globais, rotas, estáticos)
+├─ package.json
+├─ .env                     # Segredos/config local (não versionar)
+├─ .gitignore
+│
+├─ src/                     # Núcleo da aplicação (backend)
+│  ├─ controllers/          # Regras de negócio por recurso (ex.: solicitanteController.js)
+│  ├─ models/               # Schemas/modelos de dados (ex.: salaModel.js, usuariosmodel.js)
+│  ├─ services/             # Serviços transversais (ex.: emailService.js, tenantLifecycleService.js)
+│  └─ (outros módulos de domínio, se houver)
+│
+├─ routes/                  # Definição de rotas/endpoint mounting
+│  └─ *Routes.js            # Ex.: aulaRegularRoutes.js, rotas de uso/admin
+│
+├─ middleware/              # Middlewares Express reutilizáveis
+│  ├─ authMiddleware.js     # Autenticação/autorização
+│  ├─ sessionMiddleware.js  # Sessão
+│  └─ tenantMiddleware.js   # Contexto multi-tenant
+│
+├─ frontend/                # Cliente estático servido pelo app
+│  ├─ *.html                # Páginas (login, painéis, reset de senha, etc.)
+│  ├─ js/                   # Scripts por página/área (admin*.js, carregar*.js, config.js)
+│  ├─ css/                  # Estilos (não listado acima, mas padrão esperado)
+│  └─ teste/                # Protótipos/mocks de UI
+│
+├─ scripts/                 # Scripts operacionais/manutenção (backup, migração, bootstrap)
+│  ├─ *.js                  # Ex.: backup_db.js, migrate_*.js, bootstrap_superadmin.js
+│  └─ testes/               # Testes automatizados (*.test.js) + plano/README
+│
+├─ docs/                    # Documentação funcional/técnica
+│  ├─ ARQUITETURA.md, DOCUMENTACAO.md, ROADMAP.md
+│  ├─ guias operacionais (backup/restore, manutenção, scripts)
+│  └─ artefatos de API (Postman collection/environment)
+│
+├─ .github/
+│  ├─ workflows/            # CI (ex.: test.yml)
+│  └─ skills/               # Skills/config auxiliares
+│
+└─ (arquivos de análise/status na raiz)  # RESUMO_STATUS_GUS.md, ANALISE_*.md, etc.
