@@ -1,25 +1,32 @@
-require("dotenv").config();
+import "dotenv/config";
+import { randomBytes } from "node:crypto";
+import createApp from "./app.js";
 
-const isProduction = process.env.RENDER === "true" || process.env.NODE_ENV === "production";
-process.env.NODE_ENV = isProduction ? "production" : "development";
+if (process.env.NODE_ENV !== "test") {
+    const isProduction = process.env.RENDER === "true" || process.env.NODE_ENV === "production";
+    process.env.NODE_ENV = isProduction ? "production" : "development";
+}
 
-const express = require("express");
-const path = require("path");
-
-const app = express();
+const isTest = process.env.NODE_ENV === "test";
 const port = process.env.PORT || 3000;
-const frontendDirectory = path.join(__dirname, "frontend");
+let sessionSecret = process.env.SESSION_SECRET;
 
-app.get("/", (req, res) => {
-    res.redirect("/home.html");
-});
+if (!isTest && !sessionSecret) {
+    sessionSecret = randomBytes(32).toString("hex");
+    console.warn("SESSION_SECRET não definida; usando uma chave temporária para esta execução.");
+}
 
-app.get("/health", (req, res) => {
-    res.status(200).send("Servidor está funcionando corretamente.");
-});
+const app = createApp({ sessionSecret });
 
-app.use(express.static(frontendDirectory));
+if (!isTest) {
+    const server = app.listen(port, () => {
+        console.log(`Servidor em modo ${app.get("env")} disponível na porta ${port}`);
+    });
 
-app.listen(port, () => {
-    console.log(`Servidor em modo ${app.get("env")} disponível na porta ${port}`);
-});
+    server.on("error", (error) => {
+        console.error("Erro ao iniciar o servidor:", error);
+        process.exitCode = 1;
+    });
+}
+
+export default app;
